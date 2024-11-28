@@ -1,4 +1,4 @@
-export type ActionType = 'added' | 'changed' | 'deleted'
+type ActionType = 'added' | 'changed' | 'deleted'
 
 export interface TaskContent {
     type: ActionType;
@@ -6,7 +6,10 @@ export interface TaskContent {
     text: string;
 }
 
-export interface Task extends TaskContent {
-    task: TaskContent;
+export type Task = {
+    id: number;
+    text: string;
     done: boolean;
-}
+  };
+
+  export type Action = { type: ActionType; id: number; text?: string };

@@ -1,22 +1,26 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { TasksDispatchContext } from './TasksContext';
 
-interface AddTaskProps {
-    onAddTask: (text: string) => void;
-};
+let nextId = 3;
 
-export const AddTask = ({ onAddTask }: AddTaskProps) => {
+export const AddTask = () => {
   const [text, setText] = useState('');
-  return (
-    <>
-      <input
-        placeholder="Add task"
-        value={text}
-        onChange={e => setText(e.target.value)}
-      />
-      <button onClick={() => {
-        setText('');
-        onAddTask(text);
-      }}>Add</button>
-    </>
-  )
+  const dispatch = useContext(TasksDispatchContext);
+
+ return dispatch && 
+ <>
+ <input
+   placeholder="Add task"
+   value={text}
+   onChange={e => setText(e.target.value)}
+ />
+ <button onClick={() => {
+   setText('');
+   dispatch({
+       type: 'added',
+       id: nextId++,
+       text: text,
+     });
+ }}>Add</button>
+</> 
 }
